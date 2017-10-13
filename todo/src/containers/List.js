@@ -3,16 +3,16 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import * as ListActions from '../actions/ListActions'
-import List from '../components/List'
+import Task from '../components/Task'
 
-class Task extends Component {
+class List extends Component {
     constructor(props) {
         super(props)
         this.state = {}
     }
 
     render() {
-        const TaskItems = this.props.task.map((item, id) => {
+        const ListItems = this.props.list.map((item, id) => {
             return (
                 <li key={id}>
                     {item}
@@ -21,10 +21,10 @@ class Task extends Component {
         })
         return (
             <div>
-                <List addItem={this.props.actions.addToList} />
-                <h2>Task Items</h2>
+                <Task addItem={this.props.actions.addToList} removeItem={this.props.actions.removeFromList} />
+                <h2>Completed</h2>
                 <ol>
-                    {TaskItems}
+                    {ListItems}
                 </ol>
             </div>
         )
@@ -37,14 +37,14 @@ class Task extends Component {
 // the state being mapped to props is the redux state
 function mapStateToProps(state, props) {
     return {
-        task: state.task
+        list: state.list
     };
 }
 
 // Changes in our program will be reflected when new actions are dispatched
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(TaskActions, dispatch)
+        actions: bindActionCreators(ListActions, dispatch)
     }
 }
 
@@ -55,6 +55,6 @@ function mapDispatchToProps(dispatch) {
 const wrapperFunction = connect(mapStateToProps, mapDispatchToProps)
 
 // wraps the Cart component with the store connection configured above
-const wrappedComponent = wrapperFunction(Cart)
+const wrappedComponent = wrapperFunction(List)
 
-export default wrappedComponen
+export default wrappedComponent

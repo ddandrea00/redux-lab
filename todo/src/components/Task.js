@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 
-class List extends Component {
+class Task extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            listItems: [
+            taskItems: [
                 "Take Out Trash",
                 "Learn Redux",
                 "Cry Myself to Sleep",
@@ -16,23 +16,24 @@ class List extends Component {
     }
 
     render() {
-        const ListItems = this.state.ListItems.map((item, id) => {
+        const taskItems = this.state.taskItems.map((item, id) => {
             return (
                 <li key={id}>
                     {item}
                     <button onClick={() => this.props.addItem(item)}>+</button>
+                    <button onClick={() => this.props.removeItem(item)}>-</button>
                 </li>
             )
         })
         return (
             <div>
-                <h2>ToDo List</h2>
+                <h2>All Tasks</h2>
                 <ul>
-                    {ListItems}
+                    {taskItems}
                 </ul>
             </div>
         )
     }
 }
 
-export default List
+export default Task
